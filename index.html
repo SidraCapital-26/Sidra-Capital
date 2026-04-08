@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-ar="سدرة المالية | إدارة الأصول المتوافقة مع الشريعة" data-en="Sidra Capital | Shariah-Compliant Asset Management">سدرة المالية | إدارة الأصول المتوافقة مع الشريعة</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;600;700&family=Playfair+Display:wght@400;700&family=Cairo:wght@300;400;600;700&family=Cormorant+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#05111F;--navy-mid:#0A1E30;--navy-light:#0F2540;--gold:#C9A84C;--gold-light:#E2C97E;--gold-pale:#F5EDD0;--cream:#FAF7F0;--muted:rgba(250,247,240,.52);--border:rgba(201,168,76,.16)}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--cream);overflow-x:hidden;cursor:none}
+body.en{font-family:'Cormorant Garamond',serif;direction:ltr}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:repeating-linear-gradient(45deg,rgba(201,168,76,.022) 0,rgba(201,168,76,.022) 1px,transparent 1px,transparent 55px),repeating-linear-gradient(-45deg,rgba(201,168,76,.022) 0,rgba(201,168,76,.022) 1px,transparent 1px,transparent 55px)}
+
+/* LANG SWITCHER */
+.lang-btn{
+  position:fixed;bottom:2rem;right:2rem;z-index:600;
+  background:rgba(10,30,48,.9);border:1px solid var(--gold);
+  color:var(--gold);padding:.55rem 1.1rem;font-size:.82rem;
+  font-weight:700;letter-spacing:1.5px;cursor:pointer;
+  backdrop-filter:blur(12px);transition:background .25s,transform .2s;
+  font-family:'Cairo',sans-serif;display:flex;align-items:center;gap:.5rem;
+}
+.lang-btn:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px)}
+.lang-icon{font-size:1rem}
+
+/* LANG TRANSITION */
+.lang-fade{transition:opacity .28s ease,transform .28s ease}
+.lang-out{opacity:0;transform:translateY(6px);pointer-events:none}
+
+/* CURSOR */
+#cur{position:fixed;width:9px;height:9px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#ring{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s}
+#ring.big{width:56px;height:56px;opacity:.35}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 5%;transition:all .4s}
+nav.stuck{background:rgba(5,17,31,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:.9rem 5%}
+.logo{display:flex;align-items:center;gap:.85rem;text-decoration:none}
+.logo-sq{width:40px;height:40px;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);position:relative;flex-shrink:0}
+.logo-sq::before{content:'';position:absolute;inset:3px;border:.5px solid rgba(201,168,76,.28)}
+.logo-name{font-family:'Noto Naskh Arabic',serif;font-size:1.2rem;font-weight:700;display:block}
+body.en .logo-name{font-family:'Cormorant Garamond',serif;font-size:1.3rem}
+.logo-en-sub{display:block;font-size:.58rem;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;font-family:'Cairo',sans-serif;margin-top:-1px}
+.nav-links{list-style:none;display:flex;align-items:center;gap:2.2rem}
+.nav-links a{color:rgba(250,247,240,.68);text-decoration:none;font-size:.86rem;font-weight:600;letter-spacing:.4px;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:right;transition:transform .3s}
+body.en .nav-links a::after{transform-origin:left}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-links .cta{border:1px solid var(--gold);color:var(--gold)!important;padding:.5rem 1.3rem;transition:background .25s,color .25s!important}
+.nav-links .cta:hover{background:var(--gold);color:var(--navy)!important}
+.nav-links .cta::after{display:none}
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+.hamburger span{width:24px;height:1.5px;background:var(--cream);display:block}
+.mob{display:none;position:fixed;inset:0;background:rgba(5,17,31,.98);z-index:490;flex-direction:column;justify-content:center;align-items:center;gap:2rem}
+.mob.open{display:flex}
+.mob a{font-size:1.4rem;color:var(--cream);text-decoration:none;font-weight:700}
+.mob a:hover{color:var(--gold)}
+.mob-x{position:absolute;top:1.5rem;background:none;border:none;color:var(--cream);font-size:1.8rem;cursor:pointer}
+body.ar .mob-x{left:1.5rem}
+body.en .mob-x{right:1.5rem}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:8rem 5% 5rem;position:relative;overflow:hidden}
+.hero-glow{position:absolute;width:650px;height:650px;background:radial-gradient(circle,rgba(201,168,76,.065) 0%,transparent 70%);top:50%;left:58%;transform:translate(-50%,-50%);pointer-events:none}
+.hero svg.lines{position:absolute;inset:0;width:100%;height:100%;opacity:.055;pointer-events:none}
+.hero-txt{position:relative;z-index:1;max-width:54%}
+.eyebrow{display:inline-flex;align-items:center;gap:.75rem;margin-bottom:1.8rem;opacity:0;animation:rise .8s .15s forwards}
+.eyebrow-bar{width:36px;height:1px;background:var(--gold)}
+.eyebrow span{font-size:.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1.hero-h{font-family:'Noto Naskh Arabic',serif;font-size:clamp(2.6rem,5.5vw,4.8rem);font-weight:700;line-height:1.28;margin-bottom:1.5rem;opacity:0;animation:rise .8s .3s forwards}
+body.en h1.hero-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5.5vw,5rem);line-height:1.1}
+h1.hero-h em{font-style:normal;color:var(--gold);position:relative}
+h1.hero-h em::after{content:'';position:absolute;bottom:3px;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+body.en h1.hero-h em::after{background:linear-gradient(270deg,var(--gold),transparent)}
+.hero-p{font-size:1rem;line-height:2;color:var(--muted);max-width:500px;margin-bottom:2.4rem;opacity:0;animation:rise .8s .45s forwards}
+body.en .hero-p{font-size:1.05rem;line-height:1.85}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:rise .8s .6s forwards}
+.btn-g{background:linear-gradient(135deg,var(--gold),#A8832E);color:var(--navy);padding:.85rem 1.9rem;font-size:.88rem;font-weight:700;text-decoration:none;letter-spacing:.8px;transition:transform .2s,box-shadow .2s;display:inline-block;font-family:'Cairo',sans-serif;border:none;cursor:pointer}
+body.en .btn-g{font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:1.5px}
+.btn-g:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(201,168,76,.22)}
+.btn-o{border:1px solid rgba(201,168,76,.38);color:var(--gold-pale);padding:.85rem 1.9rem;font-size:.88rem;font-weight:600;text-decoration:none;letter-spacing:.8px;transition:border-color .2s,background .2s;display:inline-block;font-family:'Cairo',sans-serif}
+body.en .btn-o{font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:1.5px}
+.btn-o:hover{border-color:var(--gold);background:rgba(201,168,76,.05);color:var(--gold)}
+.hero-card{position:absolute;left:5%;top:50%;transform:translateY(-50%);z-index:1;opacity:0;animation:rise 1s .8s forwards}
+body.en .hero-card{left:auto;right:5%}
+.hcard{width:270px;background:rgba(10,30,48,.72);border:1px solid var(--border);backdrop-filter:blur(14px);padding:1.7rem}
+.hcard-lbl{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1rem}
+.hcard-num{font-family:'Playfair Display',serif;font-size:2.4rem;color:var(--cream);line-height:1;margin-bottom:.25rem}
+.hcard-sub{font-size:.78rem;color:var(--muted)}
+.hcard-div{height:1px;background:var(--border);margin:1.1rem 0}
+.hcard-row{display:flex;align-items:center;gap:.55rem;font-size:.74rem;color:rgba(250,247,240,.62);margin-bottom:.5rem}
+.hcard-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* MARQUEE */
+.mq{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:.8rem 0;background:rgba(10,30,48,.35);position:relative;z-index:1}
+.mq-track{display:flex;gap:3.5rem;white-space:nowrap;animation:mqa 28s linear infinite}
+.mq-item{font-size:.74rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.mq-sep{color:rgba(201,168,76,.3)}
+@keyframes mqa{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* STATS */
+.stats-wrap{position:relative;z-index:1;padding:4rem 5%}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border)}
+.sc{padding:2.8rem 2rem;text-align:center;border-left:1px solid var(--border);position:relative;overflow:hidden;transition:background .3s}
+.sc:last-child{border-left:none}
+body.en .sc{border-left:none;border-right:1px solid var(--border)}
+body.en .sc:last-child{border-right:none}
+.sc:hover{background:rgba(201,168,76,.035)}
+.sc::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;background:var(--gold);transition:width .4s}
+.sc:hover::after{width:55%}
+.sc-n{font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--gold-light);line-height:1;margin-bottom:.4rem;display:flex;align-items:baseline;justify-content:center;gap:.1rem}
+.sc-suf{font-size:1.3rem}
+.sc-d{font-size:.78rem;color:var(--muted);letter-spacing:.8px;line-height:1.6}
+
+/* SECTION COMMONS */
+.sec{padding:6.5rem 5%;position:relative;z-index:1}
+.sec-tag{font-size:.7rem;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.sec-tag::before{content:'';width:28px;height:1px;background:var(--gold)}
+.sec-h{font-family:'Noto Naskh Arabic',serif;font-size:clamp(1.7rem,3.2vw,2.6rem);font-weight:700;line-height:1.3}
+body.en .sec-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);line-height:1.15}
+.sec-h span{color:var(--gold)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s,transform .7s}
+.reveal.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-box{background:linear-gradient(135deg,var(--navy-light),var(--navy-mid));border:1px solid var(--border);padding:3rem;text-align:center;position:relative;overflow:hidden}
+.about-box::before{content:'';position:absolute;width:220px;height:220px;border-radius:50%;border:1px solid rgba(201,168,76,.12);top:-60px;right:-60px}
+.about-big{font-family:'Playfair Display',serif;font-size:4rem;color:var(--gold);line-height:1;display:block;margin-bottom:.3rem;position:relative;z-index:1}
+.about-sub-txt{font-size:.85rem;color:var(--muted);position:relative;z-index:1}
+.about-pill{position:absolute;bottom:-18px;right:-18px;background:var(--gold);color:var(--navy);font-weight:700;font-size:.78rem;padding:.7rem 1.2rem;z-index:2}
+body.en .about-pill{right:auto;left:-18px}
+.about-meta{display:flex;gap:1.5rem;margin-top:2.5rem;flex-wrap:wrap}
+.meta-item{border-right:1px solid var(--border);padding-right:1.5rem}
+body.en .meta-item{border-right:none;border-left:1px solid var(--border);padding-right:0;padding-left:1.5rem}
+.meta-item:last-child{border-right:none;padding-right:0}
+body.en .meta-item:last-child{border-left:none;padding-left:0}
+.meta-val{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);display:block}
+.meta-lbl{font-size:.72rem;color:var(--muted)}
+
+/* FUNDS */
+.funds-sec{background:rgba(10,30,48,.28);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.funds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem}
+.fund-card{border:1px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s;cursor:pointer}
+.fund-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.fund-card:hover{border-color:rgba(201,168,76,.4);transform:translateY(-5px)}
+.fund-tag{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;margin-top:1.5rem}
+.fund-name{font-family:'Noto Naskh Arabic',serif;font-size:1.1rem;font-weight:700;margin-bottom:.7rem;line-height:1.4}
+body.en .fund-name{font-family:'Cormorant Garamond',serif;font-size:1.2rem}
+.fund-desc{font-size:.83rem;color:var(--muted);line-height:1.85;margin-bottom:1.2rem}
+.fund-link{font-size:.78rem;color:var(--gold);letter-spacing:.5px;display:inline-flex;align-items:center;gap:.4rem;transition:gap .2s}
+.fund-link:hover{gap:.7rem}
+.fund-badge{position:absolute;top:1.2rem;left:1.2rem;font-size:.6rem;letter-spacing:1.5px;text-transform:uppercase;background:rgba(201,168,76,.12);color:var(--gold);padding:.3rem .7rem;border:1px solid rgba(201,168,76,.2)}
+body.en .fund-badge{left:auto;right:1.2rem}
+
+/* SERVICES TABS */
+.tabs-bar{display:flex;border-bottom:1px solid var(--border);margin-bottom:2.5rem;overflow-x:auto}
+.tab-b{padding:.9rem 1.7rem;font-size:.84rem;font-weight:600;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;white-space:nowrap;transition:color .2s,border-color .2s;font-family:'Cairo',sans-serif;letter-spacing:.4px}
+body.en .tab-b{font-family:'Cormorant Garamond',serif;font-size:.95rem;letter-spacing:1px}
+.tab-b:hover{color:var(--cream)}
+.tab-b.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-pane{display:none;animation:fadeUp .4s ease}
+.tab-pane.on{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.tp-h{font-family:'Noto Naskh Arabic',serif;font-size:1.8rem;font-weight:700;margin-bottom:1.1rem}
+body.en .tp-h{font-family:'Cormorant Garamond',serif;font-size:2.1rem}
+.tp-p{color:var(--muted);line-height:2;font-size:.93rem;margin-bottom:1.4rem}
+.tp-list{list-style:none;display:flex;flex-direction:column;gap:.65rem;margin-bottom:1.5rem}
+.tp-list li{display:flex;align-items:center;gap:.75rem;font-size:.85rem;color:rgba(250,247,240,.72)}
+.tp-list li::before{content:'';width:16px;height:1px;background:var(--gold);flex-shrink:0}
+.tp-visual{background:rgba(201,168,76,.04);border:1px solid var(--border);height:320px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:2rem;position:relative;overflow:hidden}
+.tp-big{font-family:'Playfair Display',serif;font-size:4rem;color:rgba(201,168,76,.75);line-height:1;margin-bottom:.4rem}
+.tp-lbl{font-size:.78rem;color:var(--muted);letter-spacing:.8px}
+.tp-ico{position:absolute;bottom:.8rem;right:1rem;font-size:3.5rem;opacity:.1}
+.tp-link{font-size:.82rem;color:var(--gold);text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;border-bottom:1px solid rgba(201,168,76,.3);padding-bottom:.2rem;transition:gap .2s,border-color .2s}
+.tp-link:hover{gap:.8rem;border-color:var(--gold)}
+
+/* AWARDS */
+.awards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:3rem}
+.aw{border:1px solid var(--border);padding:1.8rem;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+.aw::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.aw:hover{border-color:rgba(201,168,76,.4);transform:translateY(-4px)}
+.aw-yr{font-size:.68rem;letter-spacing:2px;color:var(--gold);margin-bottom:.7rem}
+.aw-t{font-size:.92rem;font-weight:700;line-height:1.5;margin-bottom:.4rem}
+.aw-o{font-size:.75rem;color:var(--muted)}
+
+/* VISION */
+.v2030{background:rgba(10,30,48,.28);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.v2030-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.v2030-badge{display:inline-flex;align-items:center;gap:.8rem;border:1px solid rgba(201,168,76,.3);padding:.7rem 1.3rem;margin-bottom:1.5rem}
+.v2030-badge span{font-size:.75rem;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+.v2030-cards{display:flex;flex-direction:column;gap:1rem}
+.v2030-card{background:rgba(201,168,76,.05);border:1px solid var(--border);padding:1.3rem;display:flex;gap:1rem;align-items:flex-start;transition:background .3s}
+.v2030-card:hover{background:rgba(201,168,76,.09)}
+.v2030-icon{font-size:1.4rem;margin-top:.1rem;flex-shrink:0}
+.v2030-card h4{font-size:.9rem;font-weight:700;margin-bottom:.3rem}
+.v2030-card p{font-size:.8rem;color:var(--muted);line-height:1.7}
+
+/* OFFICES */
+.offices-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-top:2.5rem}
+.ofc{background:var(--navy);padding:2rem 1.2rem;text-align:center;transition:background .3s;text-decoration:none;display:block;color:inherit}
+.ofc:hover{background:rgba(201,168,76,.05)}
+.ofc-flag{font-size:1.8rem;margin-bottom:.7rem;display:block}
+.ofc-city{font-size:.9rem;font-weight:700;margin-bottom:.2rem}
+.ofc-ctry{font-size:.72rem;color:var(--muted)}
+.ofc-hq{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-top:.35rem}
+
+/* NEWS */
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3rem}
+.news-card{border:1px solid var(--border);overflow:hidden;transition:border-color .3s,transform .3s;text-decoration:none;color:inherit;display:block}
+.news-card:hover{border-color:rgba(201,168,76,.38);transform:translateY(-4px)}
+.news-img{height:160px;background:rgba(201,168,76,.07);display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.news-body{padding:1.5rem}
+.news-cat{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem}
+.news-title{font-size:.93rem;font-weight:700;line-height:1.5;margin-bottom:.6rem}
+.news-date{font-size:.73rem;color:var(--muted)}
+
+/* CONTACT */
+.contact-sec{background:rgba(10,30,48,.3);border-top:1px solid var(--border)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.c-info-row{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.3rem}
+.c-info-ico{width:38px;height:38px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.c-info-txt a,.c-info-txt span{font-size:.88rem;color:var(--cream);text-decoration:none;display:block;line-height:1.7}
+.c-info-txt a:hover{color:var(--gold)}
+.c-info-lbl{font-size:.68rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.form-wrap{background:rgba(10,30,48,.5);border:1px solid var(--border);padding:2.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fg{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.fg label{font-size:.78rem;color:var(--muted);letter-spacing:.5px}
+.fg input,.fg select,.fg textarea{background:rgba(201,168,76,.04);border:1px solid var(--border);color:var(--cream);padding:.8rem 1rem;font-size:.88rem;font-family:'Cairo',sans-serif;outline:none;transition:border-color .2s;width:100%}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(201,168,76,.5)}
+.fg select option{background:var(--navy);color:var(--cream)}
+.fg textarea{resize:vertical;min-height:110px}
+.form-note{font-size:.72rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.7}
+.form-note a{color:var(--gold);text-decoration:none}
+#fsuccess{display:none;text-align:center;padding:2rem;color:var(--gold);font-size:.95rem}
+
+/* CTA */
+.cta-strip{margin:0 5% 6rem;border:1px solid var(--border);padding:3.5rem 4rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;flex-wrap:wrap;position:relative;overflow:hidden}
+.cta-strip::after{content:'';position:absolute;top:0;bottom:0;left:0;width:280px;background:linear-gradient(90deg,rgba(201,168,76,.055),transparent);pointer-events:none}
+body.en .cta-strip::after{left:auto;right:0;background:linear-gradient(270deg,rgba(201,168,76,.055),transparent)}
+.cta-strip h2{font-family:'Noto Naskh Arabic',serif;font-size:1.75rem;font-weight:700;max-width:440px;line-height:1.4}
+body.en .cta-strip h2{font-family:'Cormorant Garamond',serif;font-size:2rem}
+.cta-strip h2 span{color:var(--gold)}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(5,17,31,.88);z-index:800;display:none;align-items:center;justify-content:center;padding:2rem;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--navy-mid);border:1px solid var(--border);max-width:600px;width:100%;max-height:85vh;overflow-y:auto;padding:2.5rem;position:relative;animation:rise .35s ease}
+.modal-close{position:absolute;top:1.2rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;transition:color .2s}
+body.ar .modal-close{left:1.2rem}
+body.en .modal-close{right:1.2rem}
+.modal-close:hover{color:var(--gold)}
+.modal-tag{font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem}
+.modal-title{font-family:'Noto Naskh Arabic',serif;font-size:1.6rem;font-weight:700;margin-bottom:1.2rem}
+body.en .modal-title{font-family:'Cormorant Garamond',serif;font-size:1.9rem}
+.modal-body p{color:var(--muted);line-height:2;font-size:.92rem;margin-bottom:1rem}
+.modal-facts{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.2rem 0}
+.mfact-lbl{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem}
+.mfact-val{font-size:.92rem;font-weight:700}
+.modal-links{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1.5rem}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:3.5rem 5% 2rem;position:relative;z-index:1}
+.ft-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.ft-brand p{color:var(--muted);font-size:.84rem;line-height:1.9;margin-top:.9rem;max-width:270px}
+.ft-col h4{font-size:.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.ft-col a{color:var(--muted);text-decoration:none;font-size:.84rem;transition:color .2s;display:block}
+.ft-col a:hover{color:var(--cream)}
+.ft-bottom{border-top:1px solid var(--border);padding-top:1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.ft-bottom p{font-size:.74rem;color:rgba(250,247,240,.28)}
+.ft-cma{font-size:.68rem;color:rgba(201,168,76,.45);letter-spacing:.3px}
+.ft-socials{display:flex;gap:.8rem;margin-top:.9rem}
+.ft-social{width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--muted);text-decoration:none;transition:border-color .2s,color .2s}
+.ft-social:hover{border-color:var(--gold);color:var(--gold)}
+.stb{position:fixed;bottom:2rem;z-index:300;width:40px;height:40px;border:1px solid var(--border);background:rgba(10,30,48,.8);color:var(--gold);display:none;align-items:center;justify-content:center;cursor:pointer;transition:border-color .2s;font-size:1.1rem;text-decoration:none}
+body.ar .stb{right:5.5rem}
+body.en .stb{left:5.5rem}
+.stb.show{display:flex}
+.stb:hover{border-color:var(--gold)}
+
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:960px){
+  .nav-links{display:none}.hamburger{display:flex}
+  .hero-txt{max-width:100%}.hero-card{display:none}
+  .about-grid,.v2030-inner,.contact-grid,.tab-pane.on{grid-template-columns:1fr}
+  .stats-grid,.awards-grid,.funds-grid,.news-grid{grid-template-columns:1fr 1fr}
+  .offices-grid{grid-template-columns:repeat(3,1fr)}
+  .ft-top{grid-template-columns:1fr 1fr}
+  .cta-strip{flex-direction:column;text-align:center;padding:2.5rem}
+  .form-row{grid-template-columns:1fr}
+  .tp-visual{display:none}
+}
+@media(max-width:540px){
+  .stats-grid,.awards-grid,.funds-grid,.news-grid{grid-template-columns:1fr}
+  .offices-grid{grid-template-columns:1fr 1fr}
+  .ft-top{grid-template-columns:1fr}
+  .modal-facts{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body class="ar">
+<div id="cur"></div><div id="ring"></div>
+
+<!-- LANGUAGE BUTTON -->
+<button class="lang-btn" id="lang-btn" onclick="toggleLang()">
+  <span class="lang-icon">🌐</span>
+  <span id="lang-label">English</span>
+</button>
+
+<!-- MOBILE MENU -->
+<div class="mob" id="mob">
+  <button class="mob-x" onclick="closeMob()">✕</button>
+  <a href="#about" onclick="closeMob()" data-ar="من نحن" data-en="About Us">من نحن</a>
+  <a href="#funds" onclick="closeMob()" data-ar="صناديقنا" data-en="Our Funds">صناديقنا</a>
+  <a href="#services" onclick="closeMob()" data-ar="خدماتنا" data-en="Services">خدماتنا</a>
+  <a href="#awards" onclick="closeMob()" data-ar="جوائزنا" data-en="Awards">جوائزنا</a>
+  <a href="#news" onclick="closeMob()" data-ar="أخبارنا" data-en="News">أخبارنا</a>
+  <a href="#offices" onclick="closeMob()" data-ar="مكاتبنا" data-en="Offices">مكاتبنا</a>
+  <a href="#contact" onclick="closeMob()" style="color:var(--gold)" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="logo">
+    <div class="logo-sq">S</div>
+    <div>
+      <span class="logo-name" data-ar="سدرة المالية" data-en="Sidra Capital">سدرة المالية</span>
+      <span class="logo-en-sub" data-ar="Sidra Capital" data-en="Shariah-Compliant Asset Management">Sidra Capital</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about" data-ar="من نحن" data-en="About">من نحن</a></li>
+    <li><a href="#funds" data-ar="صناديقنا" data-en="Funds">صناديقنا</a></li>
+    <li><a href="#services" data-ar="خدماتنا" data-en="Services">خدماتنا</a></li>
+    <li><a href="#awards" data-ar="جوائزنا" data-en="Awards">جوائزنا</a></li>
+    <li><a href="#news" data-ar="أخبارنا" data-en="News">أخبارنا</a></li>
+    <li><a href="#offices" data-ar="مكاتبنا" data-en="Offices">مكاتبنا</a></li>
+    <li><a href="#contact" class="cta" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</a></li>
+  </ul>
+  <button class="hamburger" onclick="openMob()"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <svg class="lines" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+    <line x1="0" y1="220" x2="1400" y2="220" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="0" y1="680" x2="1400" y2="680" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="250" y1="0" x2="250" y2="900" stroke="#C9A84C" stroke-width=".5"/>
+    <line x1="980" y1="0" x2="980" y2="900" stroke="#C9A84C" stroke-width=".5"/>
+    <circle cx="250" cy="220" r="3" fill="#C9A84C" opacity=".6"/>
+    <circle cx="980" cy="220" r="3" fill="#C9A84C" opacity=".6"/>
+    <circle cx="250" cy="680" r="3" fill="#C9A84C" opacity=".6"/>
+    <circle cx="980" cy="680" r="3" fill="#C9A84C" opacity=".6"/>
+  </svg>
+  <div class="hero-txt">
+    <div class="eyebrow"><div class="eyebrow-bar"></div><span data-ar="مرخّصة من CMA · DFSA · MAS · تأسست 2009" data-en="Licensed by CMA · DFSA · MAS · Est. 2009">مرخّصة من CMA · DFSA · MAS · تأسست 2009</span></div>
+    <h1 class="hero-h">
+      <span data-ar="شريككم في" data-en="Your Partner in">شريككم في</span><br>
+      <em data-ar="الاستثمار الشرعي" data-en="Shariah-Compliant">الاستثمار الشرعي</em><br>
+      <span data-ar="العالمي" data-en="Global Investing">العالمي</span>
+    </h1>
+    <p class="hero-p" data-ar="سدرة المالية — رائدة في إدارة الأصول المتوافقة مع أحكام الشريعة الإسلامية، متخصصة في العقارات والتمويل الخاص والأسهم الخاصة على مستوى دولي." data-en="Sidra Capital — a leading Shariah-compliant asset manager specialising in real estate, private finance, and private equity on a global scale.">سدرة المالية — رائدة في إدارة الأصول المتوافقة مع أحكام الشريعة الإسلامية، متخصصة في العقارات والتمويل الخاص والأسهم الخاصة على مستوى دولي.</p>
+    <div class="hero-btns">
+      <a href="#funds" class="btn-g" data-ar="اكتشف صناديقنا" data-en="Explore Our Funds">اكتشف صناديقنا</a>
+      <a href="https://sidracapital.com" target="_blank" rel="noopener" class="btn-o" data-ar="الموقع الرسمي ↗" data-en="Official Website ↗">الموقع الرسمي ↗</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="hcard">
+      <div class="hcard-lbl" data-ar="الأصول المُدارة · AUM" data-en="Assets Under Management">الأصول المُدارة · AUM</div>
+      <div class="hcard-num">3.8+</div>
+      <div class="hcard-sub" data-ar="مليار ريال سعودي" data-en="Billion Saudi Riyals">مليار ريال سعودي</div>
+      <div class="hcard-div"></div>
+      <div class="hcard-row"><span class="hcard-dot"></span><span data-ar="مرخّصة من هيئة السوق المالية" data-en="Licensed by Saudi CMA">مرخّصة من هيئة السوق المالية</span></div>
+      <div class="hcard-row"><span class="hcard-dot"></span><span data-ar="مرخّصة من DFSA دبي" data-en="Licensed by Dubai DFSA">مرخّصة من DFSA دبي</span></div>
+      <div class="hcard-row"><span class="hcard-dot"></span><span data-ar="مرخّصة من MAS سنغافورة" data-en="Licensed by Singapore MAS">مرخّصة من MAS سنغافورة</span></div>
+      <div class="hcard-row"><span class="hcard-dot"></span><span data-ar="100% متوافقة مع الشريعة" data-en="100% Shariah Compliant">100% متوافقة مع الشريعة</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-track" id="mq-track">
+    <span class="mq-item" data-ar="العقارات العالمية" data-en="Global Real Estate">العقارات العالمية<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="التمويل الخاص" data-en="Private Finance">التمويل الخاص<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="الأسهم الخاصة" data-en="Private Equity">الأسهم الخاصة<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030<span class="mq-sep">◇</span></span>
+    <span class="mq-item">Jeddah · Riyadh · London · Dubai · Singapore<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="متوافق مع الشريعة · حائز على جوائز منذ 2009" data-en="Shariah Compliant · Award Winning Since 2009">متوافق مع الشريعة · حائز على جوائز منذ 2009<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="العقارات العالمية" data-en="Global Real Estate">العقارات العالمية<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="التمويل الخاص" data-en="Private Finance">التمويل الخاص<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="الأسهم الخاصة" data-en="Private Equity">الأسهم الخاصة<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030<span class="mq-sep">◇</span></span>
+    <span class="mq-item">Jeddah · Riyadh · London · Dubai · Singapore<span class="mq-sep">◇</span></span>
+    <span class="mq-item" data-ar="متوافق مع الشريعة · حائز على جوائز منذ 2009" data-en="Shariah Compliant · Award Winning Since 2009">متوافق مع الشريعة · حائز على جوائز منذ 2009<span class="mq-sep">◇</span></span>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-wrap">
+  <div class="stats-grid reveal">
+    <div class="sc"><div class="sc-n"><span class="counter" data-t="15">0</span><span class="sc-suf">+</span></div><div class="sc-d" data-ar="سنة خبرة في إدارة الأصول" data-en="Years of Asset Management">سنة خبرة في إدارة الأصول</div></div>
+    <div class="sc"><div class="sc-n"><span class="counter" data-t="500">0</span><span class="sc-suf">+</span></div><div class="sc-d" data-ar="مستثمر راضٍ حول العالم" data-en="Satisfied Investors Worldwide">مستثمر راضٍ حول العالم</div></div>
+    <div class="sc"><div class="sc-n"><span class="counter" data-t="24">0</span></div><div class="sc-d" data-ar="جائزة دولية حصدتها الشركة" data-en="International Awards Won">جائزة دولية حصدتها الشركة</div></div>
+    <div class="sc"><div class="sc-n"><span class="counter" data-t="5">0</span></div><div class="sc-d" data-ar="مكاتب في مراكز مالية عالمية" data-en="Global Financial Centre Offices">مكاتب في مراكز مالية عالمية</div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-box">
+        <span class="about-big">15+</span>
+        <p class="about-sub-txt" data-ar="سنة من الريادة في الاستثمار الشرعي العالمي" data-en="Years of Leadership in Shariah-Compliant Investing">سنة من الريادة في الاستثمار الشرعي العالمي</p>
+        <div class="about-pill" data-ar="⭐ شريك موثوق للنمو" data-en="⭐ Trusted Growth Partner">⭐ شريك موثوق للنمو</div>
+      </div>
+      <div class="about-meta">
+        <div class="meta-item"><span class="meta-val" data-ar="جدة" data-en="Jeddah">جدة</span><span class="meta-lbl" data-ar="المقر الرئيسي" data-en="Headquarters">المقر الرئيسي</span></div>
+        <div class="meta-item"><span class="meta-val">2009</span><span class="meta-lbl" data-ar="سنة التأسيس" data-en="Year Founded">سنة التأسيس</span></div>
+        <div class="meta-item"><span class="meta-val">CMA</span><span class="meta-lbl" data-ar="رخصة 08116-37" data-en="License 08116-37">رخصة 08116-37</span></div>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <div class="sec-tag" data-ar="من نحن" data-en="About Us">من نحن</div>
+      <h2 class="sec-h" style="margin-bottom:1.3rem"><span data-ar="نهج استثماري راسخ في" data-en="A Principled Investment Approach">نهج استثماري راسخ في</span> <span><span data-ar="قيم الشريعة" data-en="Rooted in Shariah Values">قيم الشريعة</span></span></h2>
+      <p style="color:var(--muted);line-height:2;font-size:.93rem;margin-bottom:1.2rem" data-ar="تأسست سدرة المالية عام 2009 في جدة، لتتحول خلال سنوات إلى شركة عالمية مرخّصة من هيئة السوق المالية السعودية وسلطة دبي للخدمات المالية وسلطة النقد في سنغافورة." data-en="Founded in 2009 in Jeddah, Sidra Capital has grown into a global organisation licensed by the Saudi CMA, Dubai's DFSA, and the Monetary Authority of Singapore.">تأسست سدرة المالية عام 2009 في جدة، لتتحول خلال سنوات إلى شركة عالمية مرخّصة من هيئة السوق المالية السعودية وسلطة دبي للخدمات المالية وسلطة النقد في سنغافورة.</p>
+      <p style="color:var(--muted);line-height:2;font-size:.93rem;margin-bottom:2rem" data-ar="نُدير محافظ استثمارية متنوعة في العقارات المُدرّة للدخل والتمويل الخاص والأسهم الخاصة، بأعلى معايير الحوكمة والشفافية وتوافق تام مع الشريعة الإسلامية." data-en="We manage diversified portfolios in income-generating real estate, private finance, and private equity, maintaining the highest standards of governance, transparency, and full Shariah compliance.">نُدير محافظ استثمارية متنوعة في العقارات المُدرّة للدخل والتمويل الخاص والأسهم الخاصة، بأعلى معايير الحوكمة والشفافية وتوافق تام مع الشريعة الإسلامية.</p>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="https://sidracapital.com/about-us/" target="_blank" rel="noopener" class="btn-g" data-ar="اقرأ المزيد ↗" data-en="Read More ↗">اقرأ المزيد ↗</a>
+        <a href="https://sidracapital.com/organizational-structure/" target="_blank" rel="noopener" class="btn-o" data-ar="الهيكل التنظيمي" data-en="Org Structure">الهيكل التنظيمي</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNDS -->
+<section class="sec funds-sec" id="funds">
+  <div class="reveal">
+    <div class="sec-tag" data-ar="صناديقنا الاستثمارية" data-en="Investment Funds">صناديقنا الاستثمارية</div>
+    <h2 class="sec-h"><span data-ar="حلول" data-en="Innovative">حلول</span> <span><span data-ar="مبتكرة" data-en="Solutions">مبتكرة</span></span> <span data-ar="لكل مستثمر" data-en="for Every Investor">لكل مستثمر</span></h2>
+  </div>
+  <div class="funds-grid">
+    <div class="fund-card reveal" onclick="openModal('f1')">
+      <div class="fund-badge" data-ar="عقارات" data-en="Real Estate">عقارات</div>
+      <div class="fund-tag">Private Real Estate</div>
+      <div class="fund-name" data-ar="صندوق التطوير السكني" data-en="Residential Development Fund">صندوق التطوير السكني</div>
+      <div class="fund-desc" data-ar="صندوق عقاري مغلق يستهدف اقتناء وتطوير أراضٍ سكنية في المدن الرئيسية بالمملكة." data-en="A closed-end real estate fund targeting the acquisition and development of residential land in major Saudi cities.">صندوق عقاري مغلق يستهدف اقتناء وتطوير أراضٍ سكنية في المدن الرئيسية بالمملكة.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+    <div class="fund-card reveal d1" onclick="openModal('f2')">
+      <div class="fund-badge" data-ar="تمويل خاص" data-en="Private Finance">تمويل خاص</div>
+      <div class="fund-tag">Private Finance</div>
+      <div class="fund-name" data-ar="صندوق سدرة للدخل الأول" data-en="Sidra Income Fund I">صندوق سدرة للدخل الأول</div>
+      <div class="fund-desc" data-ar="صندوق مفتوح أُطلق سبتمبر 2019، مرخّص من CMA، يُموّل تدفقات السلع في الاقتصادات الآسيوية." data-en="Open-ended fund launched September 2019, CMA-regulated, financing commodity flows across major Asian economies.">صندوق مفتوح أُطلق سبتمبر 2019، مرخّص من CMA، يُموّل تدفقات السلع في الاقتصادات الآسيوية.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+    <div class="fund-card reveal d2" onclick="openModal('f3')">
+      <div class="fund-badge" data-ar="تمويل خاص" data-en="Private Finance">تمويل خاص</div>
+      <div class="fund-tag">Private Finance</div>
+      <div class="fund-name" data-ar="صندوق سدرة للدخل الثاني" data-en="Sidra Income Fund II">صندوق سدرة للدخل الثاني</div>
+      <div class="fund-desc" data-ar="صندوق مفتوح أُطلق أكتوبر 2022، الفائز بجائزة المنتج الأكثر ابتكاراً في المملكة من Euromoney 2023." data-en="Open-ended fund launched October 2022. Winner of Most Innovative Product in Saudi Arabia — Euromoney 2023.">صندوق مفتوح أُطلق أكتوبر 2022، الفائز بجائزة المنتج الأكثر ابتكاراً في المملكة من Euromoney 2023.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+    <div class="fund-card reveal" onclick="openModal('f4')">
+      <div class="fund-badge" data-ar="تجارة دولية" data-en="Trade Finance">تجارة دولية</div>
+      <div class="fund-tag">Trade Finance</div>
+      <div class="fund-name" data-ar="صندوق سدرة المتجارة" data-en="Sidra Mutajara Fund">صندوق سدرة المتجارة</div>
+      <div class="fund-desc" data-ar="صندوق مفتوح أُطلق سبتمبر 2016، يُموّل سلاسل الإمداد عبر هياكل مرابحة شرعية." data-en="Open-ended fund launched September 2016, financing supply chains through fully Shariah-compliant murabaha structures.">صندوق مفتوح أُطلق سبتمبر 2016، يُموّل سلاسل الإمداد عبر هياكل مرابحة شرعية.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+    <div class="fund-card reveal d1" onclick="openModal('f5')">
+      <div class="fund-badge" data-ar="أسهم خاصة" data-en="Private Equity">أسهم خاصة</div>
+      <div class="fund-tag">Private Equity — DECO</div>
+      <div class="fund-name" data-ar="صندوق DECO للتحويل" data-en="DECO Conversion Fund">صندوق DECO للتحويل</div>
+      <div class="fund-desc" data-ar="يستهدف عوائد فوق المتوسط بتقلبات منخفضة وصفر ارتباط بالأسواق التقليدية." data-en="Targets above-average returns with low volatility and zero correlation to traditional asset classes.">يستهدف عوائد فوق المتوسط بتقلبات منخفضة وصفر ارتباط بالأسواق التقليدية.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+    <div class="fund-card reveal d2" onclick="openModal('f6')">
+      <div class="fund-badge" data-ar="تجارة منظمة" data-en="Structured Trade">تجارة منظمة</div>
+      <div class="fund-tag">Structured Trade</div>
+      <div class="fund-name" data-ar="صندوق سدرة أنسيل العالمي" data-en="Sidra Ancile Global Fund">صندوق سدرة أنسيل العالمي</div>
+      <div class="fund-desc" data-ar="فرصة فريدة للمستثمرين الباحثين عن استثمارات منتجة للدخل ذات عوائد مستدامة ومتوافقة مع الشريعة." data-en="A unique opportunity for investors seeking income-producing investments with sustainable, Shariah-compliant returns.">فرصة فريدة للمستثمرين الباحثين عن استثمارات منتجة للدخل ذات عوائد مستدامة ومتوافقة مع الشريعة.</div>
+      <span class="fund-link" data-ar="تفاصيل الصندوق →" data-en="Fund Details →">تفاصيل الصندوق →</span>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href="https://sidracapital.com" target="_blank" rel="noopener" class="btn-o" data-ar="عرض جميع الصناديق على الموقع الرسمي ↗" data-en="View All Funds on Official Website ↗">عرض جميع الصناديق على الموقع الرسمي ↗</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="reveal" style="margin-bottom:2.5rem">
+    <div class="sec-tag" data-ar="خدماتنا" data-en="Our Services">خدماتنا</div>
+    <h2 class="sec-h"><span data-ar="حلول استثمارية متكاملة" data-en="Comprehensive Investment Solutions">حلول استثمارية متكاملة</span> <span><span data-ar="ومتوافقة شرعاً" data-en="Shariah-Compliant">ومتوافقة شرعاً</span></span></h2>
+  </div>
+  <div class="tabs-bar reveal">
+    <button class="tab-b on" onclick="tab(0)" data-ar="العقارات" data-en="Real Estate">العقارات</button>
+    <button class="tab-b" onclick="tab(1)" data-ar="التمويل الخاص" data-en="Private Finance">التمويل الخاص</button>
+    <button class="tab-b" onclick="tab(2)" data-ar="الأسهم الخاصة" data-en="Private Equity">الأسهم الخاصة</button>
+    <button class="tab-b" onclick="tab(3)" data-ar="الاستشارات" data-en="Advisory">الاستشارات</button>
+  </div>
+  <div class="tab-pane on" id="tp0">
+    <div>
+      <h3 class="tp-h" data-ar="العقارات المُدرّة للدخل" data-en="Income-Generating Real Estate">العقارات المُدرّة للدخل</h3>
+      <p class="tp-p" data-ar="نستثمر في عقارات عالمية متنوعة تحقق عوائد مستدامة وتدفقات نقدية منتظمة مع ضمان التوافق الكامل مع أحكام الشريعة الإسلامية." data-en="We invest in diversified global real estate delivering sustainable returns and regular cash flows, with full Shariah compliance in every transaction.">نستثمر في عقارات عالمية متنوعة تحقق عوائد مستدامة وتدفقات نقدية منتظمة مع ضمان التوافق الكامل مع أحكام الشريعة الإسلامية.</p>
+      <ul class="tp-list">
+        <li data-ar="صندوق التطوير السكني (SRDF) في جدة" data-en="Residential Development Fund (SRDF) in Jeddah">صندوق التطوير السكني (SRDF) في جدة</li>
+        <li data-ar="استثمارات في أوروبا — Eurocap, Calais فرنسا" data-en="European investments — Eurocap, Calais, France">استثمارات في أوروبا — Eurocap, Calais فرنسا</li>
+        <li data-ar="مشاريع سكنية في جدة والرياض ومكة" data-en="Residential projects in Jeddah, Riyadh & Makkah">مشاريع سكنية في جدة والرياض ومكة</li>
+        <li data-ar="شراكة مع Burlington Capital الأمريكية" data-en="Partnership with Burlington Capital (USA)">شراكة مع Burlington Capital الأمريكية</li>
+      </ul>
+      <a href="https://sidracapital.com/real-estates/" target="_blank" rel="noopener" class="tp-link" data-ar="صفحة العقارات الرسمية ↗" data-en="Official Real Estate Page ↗">صفحة العقارات الرسمية ↗</a>
+    </div>
+    <div class="tp-visual"><div class="tp-big">148</div><div class="tp-lbl" data-ar="وحدة سكنية في جدة" data-en="Residential Units in Jeddah">وحدة سكنية في جدة</div><div class="tp-ico">🏛️</div></div>
+  </div>
+  <div class="tab-pane" id="tp1">
+    <div>
+      <h3 class="tp-h" data-ar="التمويل الخاص والتجاري" data-en="Private & Trade Finance">التمويل الخاص والتجاري</h3>
+      <p class="tp-p" data-ar="نُموّل تدفقات السلع وسلاسل الإمداد عبر هياكل مرابحة شرعية تُحقق عوائد مستقرة معدّلة حسب المخاطر." data-en="We finance commodity flows and supply chains through Shariah murabaha structures, delivering stable risk-adjusted returns.">نُموّل تدفقات السلع وسلاسل الإمداد عبر هياكل مرابحة شرعية تُحقق عوائد مستقرة معدّلة حسب المخاطر.</p>
+      <ul class="tp-list">
+        <li data-ar="صندوق الدخل الأول والثاني (2019 · 2022)" data-en="Income Fund I & II (2019 · 2022)">صندوق الدخل الأول والثاني (2019 · 2022)</li>
+        <li data-ar="تمويل صادرات الوقود الصلب من إندونيسيا" data-en="Financing solid fuel exports from Indonesia">تمويل صادرات الوقود الصلب من إندونيسيا</li>
+        <li data-ar="صندوق المتجارة للتجارة الدولية (2016)" data-en="Mutajara Fund for International Trade (2016)">صندوق المتجارة للتجارة الدولية (2016)</li>
+        <li data-ar="هياكل DECO لتحويل الدين إلى حقوق ملكية" data-en="DECO structures for debt-to-equity conversion">هياكل DECO لتحويل الدين إلى حقوق ملكية</li>
+      </ul>
+      <a href="https://sidracapital.com" target="_blank" rel="noopener" class="tp-link" data-ar="اعرف المزيد ↗" data-en="Learn More ↗">اعرف المزيد ↗</a>
+    </div>
+    <div class="tp-visual"><div class="tp-big">2019</div><div class="tp-lbl" data-ar="انطلاق صندوق الدخل الأول" data-en="Income Fund I Launched">انطلاق صندوق الدخل الأول</div><div class="tp-ico">📊</div></div>
+  </div>
+  <div class="tab-pane" id="tp2">
+    <div>
+      <h3 class="tp-h" data-ar="الأسهم الخاصة" data-en="Private Equity">الأسهم الخاصة</h3>
+      <p class="tp-p" data-ar="نستهدف شركات ذات إمكانات نمو حقيقية ونُقدّم لها رأس مال نمو وتوطيد بأسلوب شرعي خالٍ من المضاربة." data-en="We target companies with genuine growth potential, providing growth and consolidation capital in a fully Shariah-compliant manner free of speculation.">نستهدف شركات ذات إمكانات نمو حقيقية ونُقدّم لها رأس مال نمو وتوطيد بأسلوب شرعي خالٍ من المضاربة.</p>
+      <ul class="tp-list">
+        <li data-ar="استثمارات في قطاعات غير مضاربية" data-en="Investments in non-speculative sectors">استثمارات في قطاعات غير مضاربية</li>
+        <li data-ar="رأس مال توطيد ونمو للشركات" data-en="Growth & consolidation capital for companies">رأس مال توطيد ونمو للشركات</li>
+        <li data-ar="توافق 100% مع مبادئ الشريعة" data-en="100% Shariah-compliant structures">توافق 100% مع مبادئ الشريعة</li>
+        <li data-ar="حوكمة قوية وشفافية كاملة" data-en="Strong governance & full transparency">حوكمة قوية وشفافية كاملة</li>
+      </ul>
+      <a href="#contact" class="tp-link" data-ar="تواصل مع فريق الأسهم ↗" data-en="Contact Our Equity Team ↗">تواصل مع فريق الأسهم ↗</a>
+    </div>
+    <div class="tp-visual"><div class="tp-big">0%</div><div class="tp-lbl" data-ar="تعرّض للربا أو الغرر" data-en="Exposure to Riba or Gharar">تعرّض للربا أو الغرر</div><div class="tp-ico">💼</div></div>
+  </div>
+  <div class="tab-pane" id="tp3">
+    <div>
+      <h3 class="tp-h" data-ar="الاستشارات المالية" data-en="Financial Advisory">الاستشارات المالية</h3>
+      <p class="tp-p" data-ar="نُقدّم خدمات استشارية مخصصة للأفراد ذوي الثروات العالية والمكاتب العائلية والمؤسسات، بمعرفة محلية ووصول دولي." data-en="We deliver bespoke advisory services to high-net-worth individuals, family offices, and institutions, combining local expertise with global reach.">نُقدّم خدمات استشارية مخصصة للأفراد ذوي الثروات العالية والمكاتب العائلية والمؤسسات، بمعرفة محلية ووصول دولي.</p>
+      <ul class="tp-list">
+        <li data-ar="تصميم محافظ استثمارية مخصصة" data-en="Bespoke portfolio design">تصميم محافظ استثمارية مخصصة</li>
+        <li data-ar="استشارات مؤسسية وتمويل الشركات" data-en="Corporate & investment advisory">استشارات مؤسسية وتمويل الشركات</li>
+        <li data-ar="الوصول إلى شبكة خبراء دولية" data-en="Access to international expert network">الوصول إلى شبكة خبراء دولية</li>
+        <li data-ar="تقارير وتحليلات سوقية معمّقة" data-en="In-depth market research & analysis">تقارير وتحليلات سوقية معمّقة</li>
+      </ul>
+      <a href="#contact" class="tp-link" data-ar="احجز استشارة ↗" data-en="Book a Consultation ↗">احجز استشارة ↗</a>
+    </div>
+    <div class="tp-visual"><div class="tp-big">HNW</div><div class="tp-lbl" data-ar="خدمات مخصصة للثروات الكبيرة" data-en="High Net Worth Services">خدمات مخصصة للثروات الكبيرة</div><div class="tp-ico">🤝</div></div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="sec" id="awards" style="background:rgba(10,30,48,.25);border-top:1px solid var(--border)">
+  <div class="reveal">
+    <div class="sec-tag" data-ar="جوائزنا" data-en="Awards">جوائزنا</div>
+    <h2 class="sec-h"><span data-ar="اعتراف دولي بالتميز" data-en="International Recognition of Excellence">اعتراف دولي بالتميز</span> <span><span data-ar="والابتكار" data-en="and Innovation">والابتكار</span></span></h2>
+  </div>
+  <div class="awards-grid">
+    <div class="aw reveal"><div class="aw-yr">Euromoney · 2023</div><div class="aw-t" data-ar="المنتج الأكثر ابتكاراً في المملكة العربية السعودية" data-en="Most Innovative Product in Saudi Arabia">المنتج الأكثر ابتكاراً في المملكة العربية السعودية</div><div class="aw-o" data-ar="صندوق سدرة المالية للدخل الثاني" data-en="Sidra Income Fund II">صندوق سدرة المالية للدخل الثاني</div></div>
+    <div class="aw reveal d1"><div class="aw-yr">International Finance Awards · 2023</div><div class="aw-t" data-ar="أفضل شركة استثمارات بديلة متوافقة مع الشريعة" data-en="Best Shariah-Compliant Alternative Investment Firm">أفضل شركة استثمارات بديلة متوافقة مع الشريعة</div><div class="aw-o" data-ar="المملكة العربية السعودية" data-en="Saudi Arabia — KSA">المملكة العربية السعودية</div></div>
+    <div class="aw reveal d2"><div class="aw-yr">The Asset Triple A · 2023</div><div class="aw-t" data-ar="أفضل مدير أصول إسلامية لعام 2023" data-en="Asset Manager of the Year 2023">أفضل مدير أصول إسلامية لعام 2023</div><div class="aw-o" data-ar="جوائز التمويل الإسلامي" data-en="Islamic Finance Awards · Saudi Arabia">جوائز التمويل الإسلامي</div></div>
+    <div class="aw reveal"><div class="aw-yr">Islamic Finance News · 2022</div><div class="aw-t" data-ar="أفضل صفقة بحسب القطاع — التمويل التجاري" data-en="Best Deal by Sector — Trade Finance">أفضل صفقة بحسب القطاع — التمويل التجاري</div><div class="aw-o">IFN Islamic Finance Awards</div></div>
+    <div class="aw reveal d1"><div class="aw-yr">Islamic Finance News · 2022</div><div class="aw-t" data-ar="أفضل صفقة بحسب الدول — إندونيسيا" data-en="Best Deal by Country — Indonesia">أفضل صفقة بحسب الدول — إندونيسيا</div><div class="aw-o">IFN Islamic Finance Awards</div></div>
+    <div class="aw reveal d2"><div class="aw-yr">Funds Europe · 2022</div><div class="aw-t" data-ar="ضمن أفضل 50 مدير أصول عالمياً" data-en="Top 50 Global Asset Managers">ضمن أفضل 50 مدير أصول عالمياً</div><div class="aw-o" data-ar="بالتعاون مع Monterey Insight" data-en="In partnership with Monterey Insight">بالتعاون مع Monterey Insight</div></div>
+  </div>
+</section>
+
+<!-- VISION 2030 -->
+<section class="sec v2030" id="vision">
+  <div class="v2030-inner">
+    <div class="reveal">
+      <div class="v2030-badge"><span data-ar="رؤية المملكة 2030" data-en="Saudi Vision 2030">رؤية المملكة 2030</span></div>
+      <h2 class="sec-h" style="margin-bottom:1.2rem"><span data-ar="شركاء في بناء" data-en="Partners in Building">شركاء في بناء</span><br><span><span data-ar="مستقبل المملكة" data-en="Saudi Arabia's Future">مستقبل المملكة</span></span></h2>
+      <p style="color:var(--muted);line-height:2;font-size:.92rem;margin-bottom:1.5rem" data-ar="تلتزم سدرة المالية بدعم أهداف رؤية 2030 عبر الاستثمار في البنية التحتية والعقارات والسياحة." data-en="Sidra Capital is committed to supporting Vision 2030 objectives through investments in infrastructure, real estate, and tourism.">تلتزم سدرة المالية بدعم أهداف رؤية 2030 عبر الاستثمار في البنية التحتية والعقارات والسياحة.</p>
+      <a href="https://sidracapital.com/ar/insight/delivering-vision-2030-sidra-capitals-role-in-saudi-arabias-transformation/" target="_blank" rel="noopener" class="btn-o" data-ar="اقرأ رؤيتنا الكاملة ↗" data-en="Read Our Full Vision ↗">اقرأ رؤيتنا الكاملة ↗</a>
+    </div>
+    <div class="v2030-cards reveal d1">
+      <div class="v2030-card"><div class="v2030-icon">🏗️</div><div><h4 data-ar="البنية التحتية" data-en="Infrastructure">البنية التحتية</h4><p data-ar="استثمارات في تطوير البنية التحتية في مكة المكرمة وكبرى المدن السعودية." data-en="Investments in infrastructure development in Makkah and major Saudi cities.">استثمارات في تطوير البنية التحتية في مكة المكرمة وكبرى المدن السعودية.</p></div></div>
+      <div class="v2030-card"><div class="v2030-icon">🏠</div><div><h4 data-ar="الإسكان المستدام" data-en="Sustainable Housing">الإسكان المستدام</h4><p data-ar="تطوير 148 وحدة سكنية في جدة و32 فيلا في شمال أبحر." data-en="Developing 148 residential units in Jeddah and 32 villas in North Obhur.">تطوير 148 وحدة سكنية في جدة و32 فيلا في شمال أبحر.</p></div></div>
+      <div class="v2030-card"><div class="v2030-icon">✈️</div><div><h4 data-ar="السياحة والضيافة" data-en="Tourism & Hospitality">السياحة والضيافة</h4><p data-ar="شراكة لدعم استقبال 150 مليون زائر بحلول 2030 وخلق 1.6 مليون فرصة عمل." data-en="Partnership to support 150 million visitors by 2030 and create 1.6 million jobs.">شراكة لدعم استقبال 150 مليون زائر بحلول 2030 وخلق 1.6 مليون فرصة عمل.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFICES -->
+<section class="sec" id="offices">
+  <div class="reveal">
+    <div class="sec-tag" data-ar="حضورنا العالمي" data-en="Global Presence">حضورنا العالمي</div>
+    <h2 class="sec-h"><span data-ar="مكاتبنا حول" data-en="Our Offices Around">مكاتبنا حول</span> <span><span data-ar="العالم" data-en="the World">العالم</span></span></h2>
+  </div>
+  <div class="offices-grid reveal">
+    <a href="https://maps.google.com/?q=Sidra+Capital+Jeddah" target="_blank" rel="noopener" class="ofc"><span class="ofc-flag">🇸🇦</span><div class="ofc-city" data-ar="جدة" data-en="Jeddah">جدة</div><div class="ofc-ctry" data-ar="المملكة العربية السعودية" data-en="Saudi Arabia">المملكة العربية السعودية</div><div class="ofc-hq" data-ar="المقر الرئيسي" data-en="Headquarters">المقر الرئيسي</div></a>
+    <a href="https://maps.google.com/?q=Sidra+Capital+Riyadh+KAFD" target="_blank" rel="noopener" class="ofc"><span class="ofc-flag">🇸🇦</span><div class="ofc-city" data-ar="الرياض" data-en="Riyadh">الرياض</div><div class="ofc-ctry" data-ar="المملكة العربية السعودية" data-en="Saudi Arabia">المملكة العربية السعودية</div></a>
+    <a href="https://maps.google.com/?q=Sidra+Capital+London" target="_blank" rel="noopener" class="ofc"><span class="ofc-flag">🇬🇧</span><div class="ofc-city" data-ar="لندن" data-en="London">لندن</div><div class="ofc-ctry" data-ar="المملكة المتحدة" data-en="United Kingdom">المملكة المتحدة</div></a>
+    <a href="https://maps.google.com/?q=DIFC+Dubai" target="_blank" rel="noopener" class="ofc"><span class="ofc-flag">🇦🇪</span><div class="ofc-city" data-ar="دبي" data-en="Dubai">دبي</div><div class="ofc-ctry" data-ar="الإمارات العربية المتحدة" data-en="United Arab Emirates">الإمارات العربية المتحدة</div></a>
+    <a href="https://maps.google.com/?q=Sidra+Capital+Singapore" target="_blank" rel="noopener" class="ofc"><span class="ofc-flag">🇸🇬</span><div class="ofc-city" data-ar="سنغافورة" data-en="Singapore">سنغافورة</div><div class="ofc-ctry" data-ar="جمهورية سنغافورة" data-en="Republic of Singapore">جمهورية سنغافورة</div></a>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="sec" id="news" style="background:rgba(10,30,48,.2);border-top:1px solid var(--border)">
+  <div class="reveal">
+    <div class="sec-tag" data-ar="أخبار وتحليلات" data-en="News & Insights">أخبار وتحليلات</div>
+    <h2 class="sec-h"><span data-ar="آخر" data-en="Our Latest">آخر</span> <span><span data-ar="مستجداتنا" data-en="Updates">مستجداتنا</span></span></h2>
+  </div>
+  <div class="news-grid">
+    <a href="https://sidracapital.com/ar/insight/delivering-vision-2030-sidra-capitals-role-in-saudi-arabias-transformation/" target="_blank" rel="noopener" class="news-card reveal"><div class="news-img">🏙️</div><div class="news-body"><div class="news-cat" data-ar="رؤية 2030 · تحليل" data-en="Vision 2030 · Analysis">رؤية 2030 · تحليل</div><div class="news-title" data-ar="دور سدرة المالية في تحول المملكة نحو رؤية 2030" data-en="Sidra Capital's Role in Saudi Arabia's Vision 2030 Transformation">دور سدرة المالية في تحول المملكة نحو رؤية 2030</div><div class="news-date" data-ar="2025 · sidracapital.com ↗" data-en="2025 · sidracapital.com ↗">2025 · sidracapital.com ↗</div></div></a>
+    <a href="https://sidracapital.com/real-estates/sidra-capital-residential-development-fund/" target="_blank" rel="noopener" class="news-card reveal d1"><div class="news-img">🏘️</div><div class="news-body"><div class="news-cat" data-ar="عقارات · صناديق" data-en="Real Estate · Funds">عقارات · صناديق</div><div class="news-title" data-ar="صندوق التطوير السكني: مشاريع ياسمين 3 وأوش 32 في جدة" data-en="Residential Development Fund: Yasmin 3 & Oash 32 Projects in Jeddah">صندوق التطوير السكني: مشاريع ياسمين 3 وأوش 32 في جدة</div><div class="news-date" data-ar="2024 · sidracapital.com ↗" data-en="2024 · sidracapital.com ↗">2024 · sidracapital.com ↗</div></div></a>
+    <a href="https://sidracapital.com/about-us/" target="_blank" rel="noopener" class="news-card reveal d2"><div class="news-img">🏆</div><div class="news-body"><div class="news-cat" data-ar="جوائز · 2023" data-en="Awards · 2023">جوائز · 2023</div><div class="news-title" data-ar="سدرة المالية تحصد جائزة أفضل مدير أصول إسلامي من The Asset Triple A" data-en="Sidra Capital wins Asset Manager of the Year from The Asset Triple A">سدرة المالية تحصد جائزة أفضل مدير أصول إسلامي من The Asset Triple A</div><div class="news-date" data-ar="2023 · sidracapital.com ↗" data-en="2023 · sidracapital.com ↗">2023 · sidracapital.com ↗</div></div></a>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem">
+    <a href="https://sidracapital.com" target="_blank" rel="noopener" class="btn-o" data-ar="عرض جميع المقالات ↗" data-en="View All Articles ↗">عرض جميع المقالات ↗</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec contact-sec" id="contact">
+  <div class="contact-grid">
+    <div class="reveal">
+      <div class="sec-tag" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</div>
+      <h2 class="sec-h" style="margin-bottom:1.1rem"><span data-ar="هل لديك سؤال أو" data-en="Have a Question or">هل لديك سؤال أو</span><br><span><span data-ar="فرصة استثمارية؟" data-en="Investment Opportunity?">فرصة استثمارية؟</span></span></h2>
+      <p style="color:var(--muted);line-height:2;margin-bottom:2rem;font-size:.92rem" data-ar="فريقنا المتخصص جاهز للإجابة على استفساراتك ومساعدتك في اتخاذ قراراتك الاستثمارية الصحيحة." data-en="Our specialist team is ready to answer your enquiries and help you make the right investment decisions.">فريقنا المتخصص جاهز للإجابة على استفساراتك ومساعدتك في اتخاذ قراراتك الاستثمارية الصحيحة.</p>
+      <div class="c-info-row"><div class="c-info-ico">📞</div><div class="c-info-txt"><span class="c-info-lbl" data-ar="الهاتف" data-en="Phone">الهاتف</span><a href="tel:+966126029988">+966 12 602 9988</a></div></div>
+      <div class="c-info-row"><div class="c-info-ico">✉️</div><div class="c-info-txt"><span class="c-info-lbl" data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</span><a href="mailto:compliance@sidracap.com">compliance@sidracap.com</a></div></div>
+      <div class="c-info-row"><div class="c-info-ico">📍</div><div class="c-info-txt"><span class="c-info-lbl" data-ar="العنوان" data-en="Address">العنوان</span><a href="https://maps.google.com/?q=Sidra+Capital+Jeddah" target="_blank" rel="noopener" data-ar="جدة، المملكة العربية السعودية ↗" data-en="Jeddah, Saudi Arabia ↗">جدة، المملكة العربية السعودية ↗</a></div></div>
+      <div class="c-info-row"><div class="c-info-ico">🌐</div><div class="c-info-txt"><span class="c-info-lbl" data-ar="الموقع الرسمي" data-en="Official Website">الموقع الرسمي</span><a href="https://sidracapital.com" target="_blank" rel="noopener">sidracapital.com ↗</a></div></div>
+    </div>
+    <div class="reveal d1">
+      <div class="form-wrap">
+        <div id="fsuccess"></div>
+        <form id="cform" onsubmit="sendForm(event)">
+          <div class="form-row">
+            <div class="fg"><label data-ar="الاسم الكامل *" data-en="Full Name *">الاسم الكامل *</label><input type="text" required></div>
+            <div class="fg"><label data-ar="الشركة" data-en="Company">الشركة</label><input type="text"></div>
+          </div>
+          <div class="form-row">
+            <div class="fg"><label data-ar="البريد الإلكتروني *" data-en="Email *">البريد الإلكتروني *</label><input type="email" required></div>
+            <div class="fg"><label data-ar="رقم الجوال" data-en="Mobile">رقم الجوال</label><input type="tel"></div>
+          </div>
+          <div class="fg">
+            <label data-ar="موضوع الاستفسار" data-en="Enquiry Topic">موضوع الاستفسار</label>
+            <select id="topic-sel">
+              <option value="" data-ar="اختر الموضوع" data-en="Select a topic">اختر الموضوع</option>
+              <option data-ar="الاستثمار في الصناديق العقارية" data-en="Real Estate Fund Investment">الاستثمار في الصناديق العقارية</option>
+              <option data-ar="التمويل الخاص والتجاري" data-en="Private & Trade Finance">التمويل الخاص والتجاري</option>
+              <option data-ar="الأسهم الخاصة" data-en="Private Equity">الأسهم الخاصة</option>
+              <option data-ar="الاستشارات المالية" data-en="Financial Advisory">الاستشارات المالية</option>
+              <option data-ar="موضوع آخر" data-en="Other">موضوع آخر</option>
+            </select>
+          </div>
+          <div class="fg"><label data-ar="رسالتك *" data-en="Your Message *">رسالتك *</label><textarea required></textarea></div>
+          <p class="form-note"><span data-ar="بإرسال هذا النموذج أنت توافق على" data-en="By submitting you agree to our">بإرسال هذا النموذج أنت توافق على</span> <a href="https://sidracapital.com/disclosures/" target="_blank" rel="noopener" data-ar="سياسة الخصوصية" data-en="Privacy Policy">سياسة الخصوصية</a>.</p>
+          <button type="submit" class="btn-g" style="width:100%;text-align:center;border:none;cursor:pointer" data-ar="إرسال الرسالة" data-en="Send Message">إرسال الرسالة</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip reveal">
+  <div><h2><span data-ar="مستعد لرحلة" data-en="Ready to Begin Your">مستعد لرحلة</span> <span><span data-ar="الاستثمار الشرعي؟" data-en="Shariah Investment Journey?">الاستثمار الشرعي؟</span></span></h2></div>
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <a href="#contact" class="btn-g" data-ar="تواصل الآن" data-en="Get in Touch">تواصل الآن</a>
+    <a href="https://sidracapital.com" target="_blank" rel="noopener" class="btn-o" data-ar="الموقع الرسمي ↗" data-en="Official Website ↗">الموقع الرسمي ↗</a>
+  </div>
+</div>
+
+<footer>
+  <div class="ft-top">
+    <div class="ft-brand">
+      <a href="#home" class="logo" style="margin-bottom:.8rem"><div class="logo-sq">S</div><div><span class="logo-name" data-ar="سدرة المالية" data-en="Sidra Capital">سدرة المالية</span><span class="logo-en-sub" data-ar="Sidra Capital" data-en="Shariah-Compliant Asset Management">Sidra Capital</span></div></a>
+      <p data-ar="شركة رائدة في إدارة الأصول المتوافقة مع أحكام الشريعة الإسلامية، متخصصة في الأصول البديلة على المستوى العالمي منذ 2009." data-en="A leading Shariah-compliant asset manager specialising in alternative assets globally since 2009.">شركة رائدة في إدارة الأصول المتوافقة مع أحكام الشريعة الإسلامية، متخصصة في الأصول البديلة على المستوى العالمي منذ 2009.</p>
+      <div class="ft-socials">
+        <a href="https://sa.linkedin.com/company/sidra-capital" target="_blank" rel="noopener" class="ft-social">in</a>
+        <a href="https://x.com/sidracapital" target="_blank" rel="noopener" class="ft-social">𝕏</a>
+        <a href="mailto:compliance@sidracap.com" class="ft-social">✉</a>
+      </div>
+    </div>
+    <div class="ft-col">
+      <h4 data-ar="الشركة" data-en="Company">الشركة</h4>
+      <ul>
+        <li><a href="#about" data-ar="من نحن" data-en="About Us">من نحن</a></li>
+        <li><a href="https://sidracapital.com/organizational-structure/" target="_blank" rel="noopener" data-ar="الهيكل التنظيمي ↗" data-en="Org Structure ↗">الهيكل التنظيمي ↗</a></li>
+        <li><a href="#awards" data-ar="جوائزنا" data-en="Awards">جوائزنا</a></li>
+        <li><a href="https://sidracapital.com/disclosures/" target="_blank" rel="noopener" data-ar="الإفصاحات ↗" data-en="Disclosures ↗">الإفصاحات ↗</a></li>
+        <li><a href="#vision" data-ar="رؤية 2030" data-en="Vision 2030">رؤية 2030</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4 data-ar="الصناديق" data-en="Funds">الصناديق</h4>
+      <ul>
+        <li><a href="#funds" onclick="setTimeout(()=>openModal('f1'),400)" data-ar="صندوق التطوير السكني" data-en="Residential Dev. Fund">صندوق التطوير السكني</a></li>
+        <li><a href="#funds" onclick="setTimeout(()=>openModal('f2'),400)" data-ar="صندوق الدخل الأول" data-en="Income Fund I">صندوق الدخل الأول</a></li>
+        <li><a href="#funds" onclick="setTimeout(()=>openModal('f3'),400)" data-ar="صندوق الدخل الثاني" data-en="Income Fund II">صندوق الدخل الثاني</a></li>
+        <li><a href="#services" data-ar="الاستشارات" data-en="Advisory Services">الاستشارات</a></li>
+        <li><a href="https://sidracapital.com" target="_blank" rel="noopener" data-ar="جميع الخدمات ↗" data-en="All Services ↗">جميع الخدمات ↗</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4 data-ar="تواصل معنا" data-en="Contact">تواصل معنا</h4>
+      <ul>
+        <li><a href="tel:+966126029988">+966 12 602 9988</a></li>
+        <li><a href="mailto:compliance@sidracap.com">compliance@sidracap.com</a></li>
+        <li><a href="https://maps.google.com/?q=Sidra+Capital+Jeddah" target="_blank" rel="noopener" data-ar="جدة، المملكة العربية السعودية ↗" data-en="Jeddah, Saudi Arabia ↗">جدة، المملكة العربية السعودية ↗</a></li>
+        <li><a href="#offices" data-ar="مكاتبنا العالمية" data-en="Global Offices">مكاتبنا العالمية</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p data-ar="سدرة المالية © 2025 — جميع الحقوق محفوظة" data-en="Sidra Capital © 2025 — All Rights Reserved">سدرة المالية © 2025 — جميع الحقوق محفوظة</p>
+    <p class="ft-cma" data-ar="مرخّصة من هيئة السوق المالية · رخصة 08116-37 · سجل تجاري 4030187025" data-en="Licensed by Saudi CMA · License 08116-37 · CR 4030187025">مرخّصة من هيئة السوق المالية · رخصة 08116-37 · سجل تجاري 4030187025</p>
+  </div>
+</footer>
+
+<a href="#home" class="stb" id="stb">↑</a>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box"><button class="modal-close" onclick="closeModal()">✕</button><div id="mc"></div></div>
+</div>
+
+<script>
+let LANG='ar';
+
+// ── LANGUAGE SWITCH ──────────────────────────────────────────
+function toggleLang(){
+  LANG = LANG==='ar' ? 'en' : 'ar';
+  const isEn = LANG==='en';
+
+  // html dir + body class
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  document.body.classList.toggle('en', isEn);
+  document.body.classList.toggle('ar', !isEn);
+
+  // update button label
+  document.getElementById('lang-label').textContent = isEn ? 'عربي' : 'English';
+
+  // update page title
+  const titleEl = document.querySelector('title');
+  titleEl.textContent = isEn ? titleEl.dataset.en : titleEl.dataset.ar;
+
+  // translate all [data-ar] / [data-en] elements
+  document.querySelectorAll('[data-ar],[data-en]').forEach(el=>{
+    const val = isEn ? el.dataset.en : el.dataset.ar;
+    if(!val) return;
+    // for inputs/select options text-content is the right place
+    // for anchors, spans, divs, buttons → innerHTML / textContent
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') return; // skip form fields
+    el.textContent = val;
+  });
+
+  // re-apply special colour spans inside sec-h (they get flattened by textContent above)
+  // re-render them properly
+  rebuildColorSpans();
+}
+
+function rebuildColorSpans(){
+  // h2.sec-h that contain a coloured span child — restore gold span
+  // We'll re-query and rebuild only the sec-h headings
+  // Actually since we used individual data-ar/en on each child span,
+  // translateAll handles them. But textContent on the parent overwrites children.
+  // FIX: only translate LEAF nodes (nodes with no child elements)
+}
+
+// Better: translate only elements that are themselves leaf text nodes
+// Re-do toggleLang with smarter traversal
+function applyLang(){
+  const isEn = LANG==='en';
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = isEn ? 'ltr' : 'rtl';
+  document.body.classList.toggle('en', isEn);
+  document.body.classList.toggle('ar', !isEn);
+  document.getElementById('lang-label').textContent = isEn ? 'عربي' : 'English';
+  const titleEl = document.querySelector('title');
+  if(titleEl.dataset.ar && titleEl.dataset.en) titleEl.textContent = isEn ? titleEl.dataset.en : titleEl.dataset.ar;
+
+  document.querySelectorAll('[data-ar],[data-en]').forEach(el=>{
+    // skip if this element has child ELEMENTS (only translate leaves)
+    if(el.children.length > 0) return;
+    // skip form controls
+    if(['INPUT','TEXTAREA','SELECT'].includes(el.tagName)) return;
+    const val = isEn ? el.dataset.en : el.dataset.ar;
+    if(val !== undefined) el.textContent = val;
+  });
+}
+
+function toggleLang(){
+  LANG = LANG==='ar' ? 'en' : 'ar';
+  applyLang();
+}
+
+// CURSOR
+const C=document.getElementById('cur'),R=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;C.style.left=mx+'px';C.style.top=my+'px'});
+(function l(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;R.style.left=rx+'px';R.style.top=ry+'px';requestAnimationFrame(l)})();
+document.querySelectorAll('a,button,[onclick]').forEach(el=>{el.addEventListener('mouseenter',()=>R.classList.add('big'));el.addEventListener('mouseleave',()=>R.classList.remove('big'))});
+
+// NAV + SCROLL TOP
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('stuck',scrollY>70);
+  document.getElementById('stb').classList.toggle('show',scrollY>500);
+});
+
+// MOBILE
+function openMob(){document.getElementById('mob').classList.add('open')}
+function closeMob(){document.getElementById('mob').classList.remove('open')}
+
+// TABS
+function tab(i){
+  document.querySelectorAll('.tab-b').forEach((b,j)=>b.classList.toggle('on',j===i));
+  document.querySelectorAll('.tab-pane').forEach((p,j)=>p.classList.toggle('on',j===i));
+}
+
+// COUNTER
+function count(el){
+  if(el._counted) return; el._counted=true;
+  const t=+el.dataset.t,step=15,inc=t/(1500/step);let v=0;
+  const x=setInterval(()=>{v=Math.min(v+inc,t);el.textContent=Math.floor(v);if(v>=t)clearInterval(x)},step);
+}
+
+// REVEAL
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');e.target.querySelectorAll('.counter').forEach(count);io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// FORM
+function sendForm(e){
+  e.preventDefault();
+  const isEn=LANG==='en';
+  document.getElementById('cform').style.display='none';
+  const s=document.getElementById('fsuccess');
+  s.style.display='block';
+  s.style.cssText='display:block;text-align:center;padding:2rem;color:var(--gold);font-size:.95rem';
+  s.textContent=isEn?'✓ Thank you! Your message has been received. We will be in touch shortly.':'✓ شكراً! تم استلام رسالتك وسيتواصل معك فريقنا قريباً.';
+}
+
+// FUNDS DATA — bilingual
+const FD={
+  f1:{
+    ar:{tag:'العقارات الخاصة',name:'صندوق التطوير السكني (SRDF)',body:'<p>صندوق عقاري خاص مغلق مرخّص من هيئة السوق المالية في المملكة. يهدف إلى اقتناء وتطوير أراضٍ سكنية جذابة للشريحة المتوسطة والعليا في كبرى المدن السعودية.</p><p>يشتمل على مشروعَين في جدة: ياسمين 3 (18 وحدة في حي الروضة) وأوش 32 (32 فيلا في شمال أبحر).</p>',facts:[['نوع الصندوق','مغلق · عقاري'],['الموقع','جدة، المملكة'],['الوحدات','18 شقة + 32 فيلا'],['الترخيص','CMA السعودية']],link:'https://sidracapital.com/real-estates/sidra-capital-residential-development-fund/',ext:'صفحة الصندوق الرسمية ↗',cta:'استفسر الآن'},
+    en:{tag:'Private Real Estate',name:'Sidra Capital Residential Development Fund (SRDF)',body:'<p>A private closed-ended Real Estate Investment Fund licensed by the Saudi CMA, targeting the acquisition and development of attractive residential land for mid-to-high income households in major Saudi cities.</p><p>The fund comprises two projects in Jeddah: Jasmin 3 (18 units in Al Rawdah district) and Oash 32 (32 villas in North Obhur).</p>',facts:[['Fund Type','Closed-End · Real Estate'],['Location','Jeddah, Saudi Arabia'],['Units','18 Apartments + 32 Villas'],['Licence','Saudi CMA']],link:'https://sidracapital.com/real-estates/sidra-capital-residential-development-fund/',ext:'Official Fund Page ↗',cta:'Enquire Now'}
+  },
+  f2:{
+    ar:{tag:'التمويل الخاص',name:'صندوق سدرة للدخل الأول',body:'<p>صندوق مفتوح للاكتتاب الخاص أُطلق سبتمبر 2019 ومرخّص من CMA. يُموّل تدفقات السلع في الاقتصادات الآسيوية الكبرى بهياكل مرابحة شرعية، مع تركيز على صادرات الوقود الصلب من إندونيسيا.</p>',facts:[['نوع الصندوق','مفتوح · خاص'],['الإطلاق','سبتمبر 2019'],['القطاع','تمويل السلع'],['الترخيص','CMA السعودية']],link:'https://sidracapital.com',ext:'اعرف المزيد ↗',cta:'استفسر الآن'},
+    en:{tag:'Private Finance',name:'Sidra Income Fund I',body:'<p>An open-ended private placement fund launched September 2019 and regulated by the Saudi CMA. Finances commodity flows in Asia\'s largest economies through fully Shariah-compliant murabaha structures, focusing on solid fuel exports from Indonesia.</p>',facts:[['Fund Type','Open-Ended · Private'],['Launched','September 2019'],['Sector','Commodity Finance'],['Licence','Saudi CMA']],link:'https://sidracapital.com',ext:'Learn More ↗',cta:'Enquire Now'}
+  },
+  f3:{
+    ar:{tag:'التمويل الخاص',name:'صندوق سدرة للدخل الثاني',body:'<p>صندوق مفتوح للاكتتاب الخاص أُطلق أكتوبر 2022 ومرخّص من CMA. يُسهم في تمويل تدفقات السلع في الاقتصادات الآسيوية ويركز على صادرات الوقود الصلب.</p><p>حصد جائزة <b style="color:var(--gold)">المنتج الأكثر ابتكاراً في المملكة</b> من Euromoney 2023.</p>',facts:[['نوع الصندوق','مفتوح · خاص'],['الإطلاق','أكتوبر 2022'],['الجائزة','Euromoney 2023'],['الترخيص','CMA السعودية']],link:'https://sidracapital.com',ext:'اعرف المزيد ↗',cta:'استفسر الآن'},
+    en:{tag:'Private Finance',name:'Sidra Income Fund II',body:'<p>An open-ended private placement fund launched October 2022, regulated by the Saudi CMA. Facilitates commodity flows in Asia\'s largest economies, focusing on solid fuel exports.</p><p>Winner of <b style="color:var(--gold)">Most Innovative Product in Saudi Arabia</b> — Euromoney 2023.</p>',facts:[['Fund Type','Open-Ended · Private'],['Launched','October 2022'],['Award','Euromoney 2023'],['Licence','Saudi CMA']],link:'https://sidracapital.com',ext:'Learn More ↗',cta:'Enquire Now'}
+  },
+  f4:{
+    ar:{tag:'التجارة الدولية',name:'صندوق سدرة المتجارة',body:'<p>صندوق مفتوح للاكتتاب الخاص أُطلق سبتمبر 2016 ومرخّص من CMA. يُموّل سلاسل الإمداد التجاري عبر هياكل مرابحة متوافقة تماماً مع الشريعة الإسلامية.</p>',facts:[['نوع الصندوق','مفتوح · خاص'],['الإطلاق','سبتمبر 2016'],['الهيكل','مرابحة شرعية'],['الترخيص','CMA السعودية']],link:'https://sidracapital.com',ext:'اعرف المزيد ↗',cta:'استفسر الآن'},
+    en:{tag:'Trade Finance',name:'Sidra Mutajara Fund',body:'<p>An open-ended private placement fund launched September 2016 and regulated by the Saudi CMA. Finances trade supply chains through fully Shariah-compliant murabaha structures, targeting stable risk-adjusted returns for investors.</p>',facts:[['Fund Type','Open-Ended · Private'],['Launched','September 2016'],['Structure','Shariah Murabaha'],['Licence','Saudi CMA']],link:'https://sidracapital.com',ext:'Learn More ↗',cta:'Enquire Now'}
+  },
+  f5:{
+    ar:{tag:'الأسهم الخاصة',name:'صندوق DECO لتحويل الدين إلى ملكية',body:'<p>يهدف إلى توليد عوائد فوق المتوسط بتقلبات منخفضة وبدون ارتباط بالأسواق التقليدية، عبر التدخل على طول سلسلة القيمة بتقديم رأس مال نمو وتوطيد متوسط وقصير الأجل متوافق مع الشريعة.</p>',facts:[['نوع الصندوق','أسهم خاصة'],['الهيكل','DECO شرعي'],['الهدف','عوائد فوق المتوسط'],['المخاطر','تقلبات منخفضة']],link:'https://sidracapital.com',ext:'اعرف المزيد ↗',cta:'استفسر الآن'},
+    en:{tag:'Private Equity',name:'Sidra-Ancile DECO Investment Fund',body:'<p>Aims to generate low-volatility, above-average returns with zero correlation to traditional asset classes. Intervenes along the value chain by offering short-to-medium term Shariah-compliant growth and consolidation capital to non-speculative investees.</p>',facts:[['Fund Type','Private Equity'],['Structure','Shariah DECO'],['Target','Above-Average Returns'],['Volatility','Low']],link:'https://sidracapital.com',ext:'Learn More ↗',cta:'Enquire Now'}
+  },
+  f6:{
+    ar:{tag:'التجارة المنظمة',name:'صندوق سدرة أنسيل العالمي للتجارة المنظمة',body:'<p>يُقدّم فرصة فريدة للمستثمرين الباحثين عن استثمارات منتجة للدخل ذات عوائد مستدامة ومتوافقة مع أحكام الشريعة الإسلامية، من خلال شراكة مع Sidra Ancile.</p>',facts:[['نوع الصندوق','تجارة منظمة'],['الشريك','Sidra Ancile'],['الهدف','دخل مستدام'],['التوافق','100% شرعي']],link:'https://sidracapital.com',ext:'اعرف المزيد ↗',cta:'استفسر الآن'},
+    en:{tag:'Structured Trade',name:'Sidra Ancile Global Structured Trade Investment Fund',body:'<p>Provides a unique opportunity for investors seeking income-producing investments with sustainable, Shariah-compliant returns, through a structured partnership with Sidra Ancile across global trade corridors.</p>',facts:[['Fund Type','Structured Trade'],['Partner','Sidra Ancile'],['Objective','Sustainable Income'],['Compliance','100% Shariah']],link:'https://sidracapital.com',ext:'Learn More ↗',cta:'Enquire Now'}
+  }
+};
+
+function openModal(id){
+  const f=FD[id][LANG];
+  let h=`<div class="modal-tag">${f.tag}</div><div class="modal-title">${f.name}</div><div class="modal-body">${f.body}<div class="modal-facts">`;
+  f.facts.forEach(([l,v])=>{h+=`<div><div class="mfact-lbl">${l}</div><div class="mfact-val">${v}</div></div>`});
+  h+=`</div><div class="modal-links"><a href="${f.link}" target="_blank" rel="noopener" class="btn-g">${f.ext}</a><a href="#contact" class="btn-o" onclick="closeModal()">${f.cta}</a></div></div>`;
+  document.getElementById('mc').innerHTML=h;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// Init
+document.body.classList.add('ar');
+</script>
+</body>
+</html>
